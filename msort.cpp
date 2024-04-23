@@ -135,8 +135,6 @@ int main()
     clock_t end = clock();
     double sequentialBubbleTime = double(end - start) / CLOCKS_PER_SEC;
 
-    cout << "hii";
-
     // Parallel Bubble Sort
     start = clock();
 

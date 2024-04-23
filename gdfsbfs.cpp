@@ -3,6 +3,8 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <ctime>
+#include <cstdlib>
 using namespace std;
 
 class Graph
@@ -96,6 +98,35 @@ public:
             }
         }
     }
+
+    void dfsSeq(int startVertex)
+    {
+        vector<bool> visited(numVertices, false);
+        stack<int> s;
+
+        visited[startVertex] = true;
+        s.push(startVertex);
+
+        while (!s.empty())
+        {
+            /* code */
+            int current = s.top();
+            s.pop();
+
+            cout << current << " ";
+
+            for (int neighbour : adj[current])
+            {
+                /* code */
+                if (!visited[neighbour])
+                {
+                    /* code */
+                    visited[neighbour] = true;
+                    s.push(neighbour);
+                }
+            }
+        }
+    }
 };
 
 int main()
@@ -126,12 +157,19 @@ int main()
     cout << "Enter the starting vertex for BFS and DFS: ";
     cin >> startVertex;
 
-    cout << "Breadth First Search (BFS): ";
-    graph.bfs(startVertex);
+    cout << "Parallel Depth First Search (DFS): ";
+    clock_t startTime = clock();
+    graph.dfs(startVertex);
+    clock_t endTime = clock();
+    cout << "Performance " << double(endTime - startTime) << " seconds" << endl;
     cout << endl;
 
-    cout << "Depth First Search (DFS): ";
-    graph.dfs(startVertex);
+    startTime = clock();
+    cout << " Seq Depth First Search (DFS): ";
+    graph.dfsSeq(startVertex);
+    endTime = clock();
+    cout << "Performance " << double(endTime - startTime) << " seconds" << endl;
+
     cout << endl;
 
     return 0;
